@@ -2,8 +2,19 @@ var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 var exports = module.exports = {};
 
-exports.blogSchema = new Schema({
+exports.roomSchema = new Schema({
     author: String,
-    body:   String
+    name: String,
+    description: String
 });
-exports.Blog = mongoose.model('Blog',exports.blogSchema);
+
+exports.messageSchema = new Schema({
+    body:  String,
+    author: String,
+    author_id: String,
+    room_id: String,
+    date: { type: Date, default: Date.now }
+});
+
+exports.Message = mongoose.model('Message',exports.messageSchema);
+exports.Room = mongoose.model('Room',exports.roomSchema);
