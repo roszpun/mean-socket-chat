@@ -1,3 +1,54 @@
-<p>
-  chat works!
-</p>
+<div class="container">
+    <div class="columnts">
+        <div class="column">
+            <div class="content">
+                <div id="chat" class="chat-wrapper">
+                    <div class="columns">
+                        <div class="column is-3">
+                            <aside class="menu">
+                                <div class="media-content"><p class="title is-4">daniel</p>
+                                    <p class="subtitle is-6">@590b4e0db032b08c3a37494a</p>
+                                    <p class="menu-label"> Public chat rooms</p>
+                                    <ul class="menu-list rooms">
+                                        <li><a class="">Test</a></li>
+                                        <li><a class="">room's name</a></li>
+                                        <li><a class="">Siema</a></li>
+                                        <li><a class="">room's name</a></li>
+                                        <li><a class="">sakdjsaodj</a></li>
+                                        <li><a class="is-active create-new">Create new<span
+                                                class="create-icon is-pulled-right icon is-small"><i
+                                                class="fa fa-plus"></i></span></a></li>
+                                    </ul>
+                                </div>
+                            </aside>
+                        </div>
+                        <div class="column is-9">
+                            <div class="container"><!---->
+                                <div class="notification">Please select chat room to start chatting</div>
+                            </div><!----><!----></div>
+                    </div>
+                    <div class="modal">
+                        <div class="modal-background"></div>
+                        <div class="modal-card">
+                            <header class="modal-card-head"><p class="modal-card-title">Create new chat room</p>
+                                <button class="delete"></button>
+                            </header>
+                            <section class="modal-card-body">
+                                <div class="control"><input type="text" placeholder="Chat room name" class="input">
+                                    <div class="span help is-danger" style="display: none;">Please insert name of the
+                                        chat room
+                                    </div>
+                                </div>
+                                <div class="control"><textarea placeholder="Chat room description"
+                                                               class="textarea"></textarea></div>
+                            </section>
+                            <footer class="modal-card-foot"><a class="button is-success">Create</a><a class="button">Cancel</a>
+                            </footer>
+                        </div>
+                    </div>
+                </div>
+                <script src="/vue/chat.js"></script>
+            </div>
+        </div>
+    </div>
+</div>

@@ -12,7 +12,7 @@ body, html {
     border-radius: 20px;
     padding: 25px; }
 .login-panel button {
-    margin: 0 auto;
+    margin: 10px auto;
     display: block; }
 
 .menu {
@@ -22,6 +22,10 @@ body, html {
     margin-right: 30px; }
 .menu li {
     list-style: none; }
+
+.container{
+    height:100vh;
+}
 
 .create-icon {
     position: relative;
