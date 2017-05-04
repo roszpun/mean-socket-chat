@@ -1,8 +1,11 @@
 <div id="login" class="login-panel">
     <label class="label has-text-centered">Choose your login</label>
-    <input type="text" name="login" placeholder="Your login" class="input">
+    <input type="text" name="login" [(ngModel)]="username" placeholder="Your login" class="input">
     <div class="control">
-        <div class="span help is-danger"></div>
+        {{taken_nick}}
+        <div class="span help is-danger" *ngIf="login_status()">
+            Sorry, this username is already taken
+        </div>
     </div>
     <div class="control">
         <button class="button is-primary" (click)="check_login()">Login</button>
