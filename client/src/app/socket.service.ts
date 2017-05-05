@@ -74,4 +74,8 @@ export class SocketService {
     this.socket.emit('create-room', data);
   }
 
+  socket_id(){
+    return this.socket.id;
+  }
+
 }

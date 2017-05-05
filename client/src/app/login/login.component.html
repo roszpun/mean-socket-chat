@@ -7,6 +7,9 @@
             <div class="span help is-danger" *ngIf="login_status()">
                 Sorry, this username is already taken
             </div>
+            <div class="span help is-danger" *ngIf="login_error">
+                Pleas insert at least 3 letters nickname
+            </div>
         </div>
         <div class="control">
             <button class="button is-primary" (click)="check_login()">Login</button>

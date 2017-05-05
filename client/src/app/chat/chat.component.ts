@@ -19,6 +19,8 @@ export class ChatComponent implements OnInit, DoCheck {
     room_name = '';
     room_textarea='';
     modal_status = false;
+    user_id = this.socketService.socket_id();
+    error_room=false;
 
     constructor(private socketService: SocketService) {
     }
@@ -71,7 +73,12 @@ export class ChatComponent implements OnInit, DoCheck {
             author: this.user_login,
             room_id: this.current_room_id,
         };
-        this.socketService.send_message(obj)
+        this.socketService.send_message(obj);
+       setTimeout(function () {
+           var objDiv = document.getElementById("scroller");
+           objDiv.scrollTop = objDiv.scrollHeight + 90;
+           this.textarea_message = '';
+       },50)
     }
 
     open_modal(){
@@ -87,8 +94,15 @@ export class ChatComponent implements OnInit, DoCheck {
             author: this.user_login,
             description: this.room_textarea
         };
+        this.error_room = false;
+        if(obj.name == ''){
+            this.error_room = true;
+            console.log(this.error_room);
+            return
+        }
         this.socketService.create_room(obj);
         this.close_modal();
     }
+
 
 }

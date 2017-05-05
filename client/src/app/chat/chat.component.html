@@ -7,7 +7,7 @@
                         <div class="column is-3">
                             <aside class="menu">
                                 <div class="media-content"><p class="title is-4">{{user_login}}</p>
-                                    <p class="subtitle is-6">@590b4e0db032b08c3a37494a</p>
+                                    <p class="subtitle is-6">@{{user_id}}</p>
                                     <p class="menu-label"> Public chat rooms</p>
                                     <ul class="menu-list rooms">
                                         <li  *ngFor="let room of chat?.rooms"><a (click)="open_room(room._id)" class="">{{room.name}}</a>
@@ -21,11 +21,11 @@
                         </div>
                         <div class="column is-9">
                             <div class="container">
-                                <div class="notification">Current room: &nbsp;<strong>{{current_room.name}}</strong>
-                                    <div class="title is-6">Elo
+                                <div class="notification"><span *ngIf="current_room_id != ''">Current room: &nbsp;<strong>{{current_room.name}}</strong></span><span *ngIf="current_room_id == ''"><strong>Please select room!</strong></span>
+                                    <div class="title is-6">{{current_room?.description}}
                                     </div>
                                 </div>
-                                <div class="chat-messages-wrapper">
+                                <div class="chat-messages-wrapper" id="scroller">
                                     <article class="media" *ngFor="let message of current_room_messages">
                                         <figure class="media-left">
                                             <div class="image is-32x32">
@@ -42,7 +42,7 @@
                                     </article>
 
                                 </div>
-                                <div class="chat-typer">
+                                <div class="chat-typer" *ngIf="current_room_id != ''">
                                     <article class="media">
                                         <figure class="media-left">
                                             <div class="image is-32x32">
@@ -54,9 +54,9 @@
                                                 of
                                                 the chat room
                                             </div>
-                                            <p class="control"><textarea [(ngModel)]="textarea_message"
+                                            <p class="control"><textarea id="textarea" [(ngModel)]="textarea_message"
                                                                          placeholder="Your message"
-                                                                         class="textarea"></textarea></p>
+                                                                         class="textarea" ></textarea></p>
                                             <p class="control">
                                                 <button class="button" (click)="trigger_send_message()">send</button>
                                             </p>
@@ -73,12 +73,12 @@
                                 <button class="delete"></button>
                             </header>
                             <section class="modal-card-body">
-                                <div class="control"><input type="text" placeholder="Chat room name" class="input">
-                                    <div class="span help is-danger" style="display: none;">Please insert name of the
+                                <div class="control"><input required type="text" placeholder="Chat room name" class="input">
+                                    <div class="span help is-danger" *ngIf="error_room">Please insert name of the
                                         chat room
                                     </div>
                                 </div>
-                                <div class="control"><textarea placeholder="Chat room description"
+                                <div class="control"><textarea required placeholder="Chat room description"
                                                                class="textarea"></textarea></div>
                             </section>
                             <footer class="modal-card-foot"><a class="button is-success">Create</a><a class="button">Cancel</a>
@@ -98,7 +98,7 @@
         </header>
         <section class="modal-card-body">
             <div class="control"><input type="text" [(ngModel)]="room_name" placeholder="Chat room name" class="input">
-                <div class="span help is-danger" style="display: none;">Please insert name of the chat room</div>
+                <div class="span help is-danger" *ngIf="error_room">Please insert name of the chat room</div>
             </div>
             <div class="control"><textarea [(ngModel)]="room_textarea" placeholder="Chat room description" class="textarea"></textarea></div>
         </section>
