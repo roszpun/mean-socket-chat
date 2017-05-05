@@ -1,8 +1,9 @@
-import { Injectable} from '@angular/core';
+import { Injectable, Input, OnChanges} from '@angular/core';
 import * as io from 'socket.io-client';
 import { Observable } from 'rxjs/Observable';
 import { Subject } from 'rxjs/Subject';
 import { Router, ActivatedRoute } from '@angular/router';
+import {ChatComponent} from "./chat/chat.component";
 
 @Injectable()
 export class SocketService {
@@ -10,6 +11,8 @@ export class SocketService {
   private socket;
   taken_nick;
   user_name;
+  room_id;
+  @Input() rooms;
 
 
   get_user(){
@@ -21,7 +24,7 @@ export class SocketService {
 
 
   sendMessage(message){
-    this.socket.emit('add-message', message);
+    this.socket.emit('new message', message);
   }
 
   checkLogin(username){
@@ -42,25 +45,34 @@ export class SocketService {
     this.router.navigate(['/']);
   }
 
-
-  getMessages() {
-    let observable = new Observable(observer => {
-      this.socket.on('message', (data) => {
-        observer.next(data);
-      });
-      return () => {
-        this.socket.disconnect();
-      };
-    });
-    return observable;
+  update_stuff(){
+    this.get_all_rooms();
   }
 
+
   constructor(private router: Router) {
+
     this.socket = io(this.url);
     this.socket.on('connect', (data) => {
       console.log(this.socket.io.engine.id)
     });
 
+    this.socket.on('update-messages', (data) => {
+      this.update_stuff();
+    });
+
+  }
+
+  send_message(){
+    this.socket.emit('new-message', 'cos');
+  }
+
+
+  get_all_rooms(){
+    this.socket.emit('get_rooms');
+    this.socket.on('return_rooms', (data) => {
+      this.rooms = data;
+    });
   }
 
 }

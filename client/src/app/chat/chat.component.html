@@ -10,11 +10,8 @@
                                     <p class="subtitle is-6">@590b4e0db032b08c3a37494a</p>
                                     <p class="menu-label"> Public chat rooms</p>
                                     <ul class="menu-list rooms">
-                                        <li><a class="">Test</a></li>
-                                        <li><a class="">room's name</a></li>
-                                        <li><a class="">Siema</a></li>
-                                        <li><a class="">room's name</a></li>
-                                        <li><a class="">sakdjsaodj</a></li>
+                                        <li *ngFor="let room of chat.rooms"><a (click)="open_room(room._id)" class="">{{room.name}}</a>
+                                        </li>
                                         <li><a class="is-active create-new">Create new<span
                                                 class="create-icon is-pulled-right icon is-small"><i
                                                 class="fa fa-plus"></i></span></a></li>
@@ -23,9 +20,50 @@
                             </aside>
                         </div>
                         <div class="column is-9">
-                            <div class="container"><!---->
-                                <div class="notification">Please select chat room to start chatting</div>
-                            </div><!----><!----></div>
+                            <div class="container">
+                                <div class="notification">Current room: &nbsp;<strong>{{current_room.name}}</strong>
+                                    <div class="title is-6">Elo
+                                    </div>
+                                </div>
+                                <div class="chat-messages-wrapper">
+                                    <article class="media" *ngFor="let message of current_room_messages">
+                                        <figure class="media-left">
+                                            <div class="image is-32x32">
+                                                <div class="user-avatar">{{message.author.charAt(0)}}</div>
+                                            </div>
+                                        </figure>
+                                        <div class="media-content">
+                                            <div class="content">
+                                                <p><strong>{{message.author}}</strong><br>{{message.body}}<br>
+                                                    <small>{{message.date}}</small>
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </article>
+
+                                </div>
+                                <div class="chat-typer">
+                                    <article class="media">
+                                        <figure class="media-left">
+                                            <div class="image is-32x32">
+                                                <div class="user-avatar">d</div>
+                                            </div>
+                                        </figure>
+                                        <div class="media-content">
+                                            <div class="span help is-danger" style="display: none;">Please insert name
+                                                of
+                                                the chat room
+                                            </div>
+                                            <p class="control"><textarea placeholder="Your message"
+                                                                         class="textarea"></textarea></p>
+                                            <p class="control">
+                                                <button class="button" (click)="trigger_send_message()">send</button>
+                                            </p>
+                                        </div>
+                                    </article>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                     <div class="modal">
                         <div class="modal-background"></div>

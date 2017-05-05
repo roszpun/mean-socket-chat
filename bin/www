@@ -7,6 +7,11 @@
 var app = require('../app');
 var debug = require('debug')('MEAN2:server');
 var http = require('http');
+var express = require('express');
+var router = express.Router();
+var mongoose = require('mongoose');
+var schema = require('../model/schema');
+var database = require('../model/database');
 
 /**
  * Get port from environment and store in Express.
@@ -32,15 +37,15 @@ io.on('connection', function (socket) {
     //     author_id: get the author id,
     //     room_id: get the room id
     // });
-    socket.on('new chat message', function (data) {
+    socket.on('new-message', function (data) {
         console.log(data);
-        io.emit('messages-' + data.room_id, data);
+        io.emit('update-messages');
     });
 
     function checkUsers(login) {
         var status = false;
         users.forEach(function (user) {
-            if(user.login == login){
+            if (user.login == login) {
                 status = true;
             }
         });
@@ -50,17 +55,46 @@ io.on('connection', function (socket) {
 
     socket.on('get_username', function () {
         users.forEach(function (user) {
-            if(user.id == socket.id){
+            if (user.id == socket.id) {
                 io.emit('return_username', user.login);
             }
         });
     });
 
+    socket.on('get_rooms', function () {
+        var messages = mongoose.model('Message');
+        var rooms = mongoose.model('Room');
+        rooms.find({}, function (err, db_rooms) {
+            if (err) {
+                console.error(err);
+                res.render(err);
+            }
+            else {
+                messages.find({}, function (err, db_messages) {
+                    if (err) {
+                        console.error(err);
+                        res.render(err);
+                    }
+                    else {
+
+                        var obj = {
+                            title: 'Chat',
+                            rooms: db_rooms,
+                            messages: db_messages
+                        };
+                        io.emit('return_rooms', obj);
+                    }
+                })
+            }
+        })
+
+    });
+
     socket.on('new_user', function (data) {
         if (checkUsers(data) == false) {
             var obj = {
-                login : data,
-                id : socket.id
+                login: data,
+                id: socket.id
             };
             users.push(obj);
             io.emit('username_free', data);
@@ -69,7 +103,9 @@ io.on('connection', function (socket) {
         }
     });
 
-    socket.on('disconnect', function() {
+
+
+    socket.on('disconnect', function () {
         var i = users.indexOf(socket);
         users.splice(i, 1);
     });
