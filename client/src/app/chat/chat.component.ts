@@ -17,10 +17,10 @@ export class ChatComponent implements OnInit, DoCheck {
     user_login = '';
     textarea_message = '';
     room_name = '';
-    room_textarea='';
+    room_textarea = '';
     modal_status = false;
     user_id = this.socketService.socket_id();
-    error_room=false;
+    error_room = false;
 
     constructor(private socketService: SocketService) {
     }
@@ -69,33 +69,38 @@ export class ChatComponent implements OnInit, DoCheck {
 
     trigger_send_message() {
         let obj = {
-            body : this.textarea_message,
+            body: this.textarea_message,
             author: this.user_login,
             room_id: this.current_room_id,
         };
+        if (this.textarea_message == '') {
+            return
+        }
         this.socketService.send_message(obj);
-       setTimeout(function () {
-           var objDiv = document.getElementById("scroller");
-           objDiv.scrollTop = objDiv.scrollHeight + 90;
-           this.textarea_message = '';
-       },50)
+        setTimeout(() => {
+            var objDiv = document.getElementById("scroller");
+            objDiv.scrollTop = objDiv.scrollHeight + 90;
+            this.textarea_message = '';
+        }, 50)
+
     }
 
-    open_modal(){
+    open_modal() {
         this.modal_status = true;
     }
-    close_modal(){
+
+    close_modal() {
         this.modal_status = false;
     }
 
-    trigger_create_room(){
+    trigger_create_room() {
         let obj = {
             name: this.room_name,
             author: this.user_login,
             description: this.room_textarea
         };
         this.error_room = false;
-        if(obj.name == ''){
+        if (obj.name == '') {
             this.error_room = true;
             console.log(this.error_room);
             return
