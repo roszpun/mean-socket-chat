@@ -47,6 +47,16 @@ io.on('connection', function (socket) {
         io.emit('update-data', data);
     });
 
+    socket.on('create-room', function (data) {
+        var instance = new schema.Room(data);
+        instance.save(function (err, Room) {
+            if (err)
+                return console.error(err);
+            console.log("Save success: ", Room);
+        });
+        io.emit('update-data', data);
+    });
+
     function checkUsers(login) {
         var status = false;
         users.forEach(function (user) {

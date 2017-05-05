@@ -22,11 +22,6 @@ export class SocketService {
     });
   }
 
-
-  sendMessage(message){
-    this.socket.emit('new message', message);
-  }
-
   checkLogin(username){
     this.socket.emit('new_user', username);
   }
@@ -64,7 +59,6 @@ export class SocketService {
   }
 
   send_message(data){
-    console.log('message');
     this.socket.emit('new-message', data);
   }
 
@@ -74,6 +68,10 @@ export class SocketService {
     this.socket.on('return_rooms', (data) => {
       this.rooms = data;
     });
+  }
+
+  create_room(data){
+    this.socket.emit('create-room', data);
   }
 
 }

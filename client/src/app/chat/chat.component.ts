@@ -8,14 +8,17 @@ import {SocketService} from '../socket.service';
 })
 export class ChatComponent implements OnInit, DoCheck {
     chat = {
-        rooms: [{_id: '', name: ''}],
+        rooms: [{_id: '', name: '', description: ''}],
         messages: [{room_id: ''}]
     };
     current_room_messages = [];
     current_room = {};
     current_room_id = '';
     user_login = '';
-    textarea_message: '';
+    textarea_message = '';
+    room_name = '';
+    room_textarea='';
+    modal_status = false;
 
     constructor(private socketService: SocketService) {
     }
@@ -29,8 +32,7 @@ export class ChatComponent implements OnInit, DoCheck {
             if (this.user_login == null) {
                 this.socketService.redirect_to_login();
             }
-            console.log('chat', this.chat);
-        }, 50);
+        }, 250);
     }
 
     room_messages(id) {
@@ -57,8 +59,8 @@ export class ChatComponent implements OnInit, DoCheck {
     }
 
     ngDoCheck() {
+        this.chat = this.socketService.rooms;
         if (this.current_room_id != '') {
-            this.chat = this.socketService.rooms;
             this.open_room(this.current_room_id);
         }
     }
@@ -70,6 +72,23 @@ export class ChatComponent implements OnInit, DoCheck {
             room_id: this.current_room_id,
         };
         this.socketService.send_message(obj)
+    }
+
+    open_modal(){
+        this.modal_status = true;
+    }
+    close_modal(){
+        this.modal_status = false;
+    }
+
+    trigger_create_room(){
+        let obj = {
+            name: this.room_name,
+            author: this.user_login,
+            description: this.room_textarea
+        };
+        this.socketService.create_room(obj);
+        this.close_modal();
     }
 
 }

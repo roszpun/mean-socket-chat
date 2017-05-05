@@ -10,9 +10,9 @@
                                     <p class="subtitle is-6">@590b4e0db032b08c3a37494a</p>
                                     <p class="menu-label"> Public chat rooms</p>
                                     <ul class="menu-list rooms">
-                                        <li *ngFor="let room of chat.rooms"><a (click)="open_room(room._id)" class="">{{room.name}}</a>
+                                        <li *ngIf="chat !== undefined" *ngFor="let room of chat.rooms"><a (click)="open_room(room._id)" class="">{{room.name}}</a>
                                         </li>
-                                        <li><a class="is-active create-new">Create new<span
+                                        <li><a class="is-active create-new" (click)="open_modal()">Create new<span
                                                 class="create-icon is-pulled-right icon is-small"><i
                                                 class="fa fa-plus"></i></span></a></li>
                                     </ul>
@@ -54,7 +54,8 @@
                                                 of
                                                 the chat room
                                             </div>
-                                            <p class="control"><textarea [(ngModel)]="textarea_message" placeholder="Your message"
+                                            <p class="control"><textarea [(ngModel)]="textarea_message"
+                                                                         placeholder="Your message"
                                                                          class="textarea"></textarea></p>
                                             <p class="control">
                                                 <button class="button" (click)="trigger_send_message()">send</button>
@@ -85,8 +86,22 @@
                         </div>
                     </div>
                 </div>
-                <script src="/vue/chat.js"></script>
             </div>
         </div>
+    </div>
+</div>
+<div class="modal is-active" *ngIf="modal_status">
+    <div class="modal-background" (click)="close_modal()"></div>
+    <div class="modal-card">
+        <header class="modal-card-head"><p class="modal-card-title">Create new chat room</p>
+            <button (click)="close_modal()" class="delete"></button>
+        </header>
+        <section class="modal-card-body">
+            <div class="control"><input type="text" [(ngModel)]="room_name" placeholder="Chat room name" class="input">
+                <div class="span help is-danger" style="display: none;">Please insert name of the chat room</div>
+            </div>
+            <div class="control"><textarea [(ngModel)]="room_textarea" placeholder="Chat room description" class="textarea"></textarea></div>
+        </section>
+        <footer class="modal-card-foot"><a (click)="trigger_create_room()" class="button is-success">Create</a><a class="button" (click)="close_modal()">Cancel</a></footer>
     </div>
 </div>
