@@ -10,7 +10,7 @@
                                     <p class="subtitle is-6">@590b4e0db032b08c3a37494a</p>
                                     <p class="menu-label"> Public chat rooms</p>
                                     <ul class="menu-list rooms">
-                                        <li *ngIf="chat !== undefined" *ngFor="let room of chat.rooms"><a (click)="open_room(room._id)" class="">{{room.name}}</a>
+                                        <li  *ngFor="let room of chat?.rooms"><a (click)="open_room(room._id)" class="">{{room.name}}</a>
                                         </li>
                                         <li><a class="is-active create-new" (click)="open_modal()">Create new<span
                                                 class="create-icon is-pulled-right icon is-small"><i
