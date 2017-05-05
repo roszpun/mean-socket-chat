@@ -7,6 +7,7 @@ import { routing } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login.component';
 import { ChatComponent } from './chat/chat.component';
+import {SocketService} from "./socket.service";
 
 @NgModule({
   declarations: [
@@ -20,7 +21,7 @@ import { ChatComponent } from './chat/chat.component';
     FormsModule,
     HttpModule
   ],
-  providers: [],
+  providers: [SocketService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { SocketService } from '../socket.service';
 
 @Component({
   selector: 'app-chat',
@@ -7,9 +8,17 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ChatComponent implements OnInit {
 
-  constructor() { }
-
+  user_login = '';
+  constructor(private socketService: SocketService) { }
   ngOnInit() {
+    this.socketService.get_user();
+    setTimeout( () => {
+      this.user_login = this.socketService.user_name;
+      if(this.user_login == null){
+        this.socketService.redirect_to_login();
+      }
+    }, 50);
+
   }
 
 }

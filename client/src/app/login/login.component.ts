@@ -10,8 +10,7 @@ import { SocketService } from '../socket.service';
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
-  styleUrls: ['./login.component.css'],
-    providers: [SocketService]
+  styleUrls: ['./login.component.css']
 })
 @Injectable()
 export class LoginComponent implements OnInit {
@@ -20,7 +19,6 @@ export class LoginComponent implements OnInit {
 
   constructor(private http: Http, private socketService: SocketService) {}
   ngOnInit() {
-
       this.connection = this.socketService.observe_username();
   }
 
