@@ -3,13 +3,15 @@
 ### Dependencies
 * [node.js](https://nodejs.org/en/download/)
 * [mongodb](https://www.mongodb.com/download-center)
-* [angular cli]
+* angular cli
 
 ### Getting started
 * Have mongo db, angular cli and node.js installed
 * Download npm dependencies - `npm install`
+* Install angular dependencies - `cd client/`,`npm install`
 * Run mongodb - `mongod`
 * Run the server - `npm run start`
+* Other commands - `npm run prepare`, `npm run build`
 
 
 #### Contributors
