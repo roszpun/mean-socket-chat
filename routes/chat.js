@@ -21,11 +21,7 @@ router.get('/', function (req, res, next) {
                     res.render(err);
                 }
                 else {
-                    res.render('chat', {
-                        title: 'Chat',
-                        rooms: db_rooms,
-                        messages: db_messages
-                    })
+                    res.redirect('http://127.0.0.1:3000');
                 }
             })
         }

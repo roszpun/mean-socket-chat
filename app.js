@@ -27,6 +27,11 @@ app.use(cookieParser());
 
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.static(path.join(__dirname, 'client/dist')));
+
+app.get('*', function(req, res) {
+    res.redirect('/');
+});
+
 app.use('/', index);
 app.use('/chat', chat);
 app.use('/users', users);
