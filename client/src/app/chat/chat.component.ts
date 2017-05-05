@@ -15,6 +15,7 @@ export class ChatComponent implements OnInit, DoCheck {
     current_room = {};
     current_room_id = '';
     user_login = '';
+    textarea_message: '';
 
     constructor(private socketService: SocketService) {
     }
@@ -63,7 +64,12 @@ export class ChatComponent implements OnInit, DoCheck {
     }
 
     trigger_send_message() {
-        this.socketService.send_message()
+        let obj = {
+            body : this.textarea_message,
+            author: this.user_login,
+            room_id: this.current_room_id,
+        };
+        this.socketService.send_message(obj)
     }
 
 }

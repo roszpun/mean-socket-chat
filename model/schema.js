@@ -11,7 +11,6 @@ exports.roomSchema = new Schema({
 exports.messageSchema = new Schema({
     body:  String,
     author: String,
-    author_id: String,
     room_id: String,
     date: { type: Date, default: Date.now }
 });

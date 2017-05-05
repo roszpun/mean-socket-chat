@@ -38,8 +38,13 @@ io.on('connection', function (socket) {
     //     room_id: get the room id
     // });
     socket.on('new-message', function (data) {
-        console.log(data);
-        io.emit('update-messages');
+        var instance = new schema.Message(data);
+        instance.save(function (err, Message) {
+            if (err)
+                return console.error(err);
+            console.log("Save success: ", Message);
+        });
+        io.emit('update-data', data);
     });
 
     function checkUsers(login) {

@@ -57,14 +57,15 @@ export class SocketService {
       console.log(this.socket.io.engine.id)
     });
 
-    this.socket.on('update-messages', (data) => {
+    this.socket.on('update-data', (data) => {
       this.update_stuff();
     });
 
   }
 
-  send_message(){
-    this.socket.emit('new-message', 'cos');
+  send_message(data){
+    console.log('message');
+    this.socket.emit('new-message', data);
   }
 
 

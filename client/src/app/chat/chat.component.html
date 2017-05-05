@@ -54,7 +54,7 @@
                                                 of
                                                 the chat room
                                             </div>
-                                            <p class="control"><textarea placeholder="Your message"
+                                            <p class="control"><textarea [(ngModel)]="textarea_message" placeholder="Your message"
                                                                          class="textarea"></textarea></p>
                                             <p class="control">
                                                 <button class="button" (click)="trigger_send_message()">send</button>
