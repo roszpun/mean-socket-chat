@@ -1,4 +1,4 @@
-## Mandatory chat assignment for frameworks classes with mongodb, angular 2 and socket.io
+## MEAN STACK chat
 
 ### Dependencies
 * [node.js](https://nodejs.org/en/download/)
